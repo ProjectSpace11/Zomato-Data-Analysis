@@ -1,0 +1,17 @@
+{
+	"name": "create view gold",
+	"properties": {
+		"content": {
+			"query": "-- CREATE VIEW ZOAMTODATA\nCREATE VIEW gold.zomatodata\nAS\nSELECT\n*\nFROM\nOPENROWSET\n(BULK 'https://zomatodl.blob.core.windows.net/silver/zomatodata/', FORMAT='Parquet')\nAS Quer1\n\n-- CREATE VIEW Zomato_country_data---\nCREATE VIEW gold.zomato_country_data\nAS\nSELECT\n*\nFROM\nOPENROWSET\n(BULK 'https://zomatodl.blob.core.windows.net/silver/zomato_country_data/', FORMAT='Parquet')\nAS Quer1\n\n---CREATE VIEW resturent_count_country_data---\nCREATE VIEW gold.resturent_count_country\nAS\nSELECT\n*\nFROM\nOPENROWSET\n(BULK 'https://zomatodl.blob.core.windows.net/silver/resturent_count_country/', FORMAT='Parquet')\nAS Quer1\n\n\n---CREATE VIEW resturent_count_city_data---\nCREATE VIEW gold.resturent_count_city\nAS\nSELECT\n*\nFROM\nOPENROWSET\n(BULK 'https://zomatodl.blob.core.windows.net/silver/resturent_count_city/', FORMAT='Parquet')\nAS Quer1\n\n\n---CREATE VIEW price_range_data---\nCREATE VIEW gold.price_range\nAS\nSELECT\n*\nFROM\nOPENROWSET\n(BULK 'https://zomatodl.blob.core.windows.net/silver/price_range/', FORMAT='Parquet')\nAS Quer1\n\n\n---CREATE VIEW merged_data---\nCREATE VIEW gold.merged_data\nAS\nSELECT\n*\nFROM\nOPENROWSET\n(BULK 'https://zomatodl.blob.core.windows.net/silver/merged_data/', FORMAT='Parquet')\nAS Quer1\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "Zomatodatabase",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

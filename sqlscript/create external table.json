@@ -1,0 +1,17 @@
+{
+	"name": "create external table",
+	"properties": {
+		"content": {
+			"query": "CREATE DATABASE SCOPED CREDENTIAL cred_zomato\nWITH\nIDENTITY ='Managed Identity' \n\n\nCREATE EXTERNAL DATA SOURCE source_silver\nWITH\n(\n    LOCATION='https://zomatodl.blob.core.windows.net/silver/',\n    CREDENTIAL= cred_zomato\n)\n\n\nCREATE EXTERNAL DATA SOURCE source_gold\nWITH\n(\n    LOCATION='https://zomatodl.blob.core.windows.net/gold/',\n    CREDENTIAL= cred_zomato\n)\n\n\nCREATE EXTERNAL FILE FORMAT format_parquet\nWITH\n(\n    FORMAT_TYPE = PARQUET,\n    DATA_COMPRESSION = 'org.apache.hadoop.io.compress.SnappyCodec'\n)\n\n-- create external table\nDROP EXTERNAL TABLE gold.extdata\nCREATE EXTERNAL TABLE gold.extdata1\nWITH\n(\n    LOCATION= 'Merged_data',\n    DATA_SOURCE= source_gold,\n    FILE_FORMAT = format_parquet\n)\nAS\nSELECT * from gold.merged_data\n\n\n\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "Zomatodatabase",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
