@@ -1,0 +1,137 @@
+{
+	"name": "AzureSqldb",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_sqldb",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"table_name": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "Restaurant_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Restaurant_Name",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Country_Code",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "City",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Address",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Locality",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Locality_Verbose",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Longitude",
+				"type": "decimal",
+				"precision": 9,
+				"scale": 6
+			},
+			{
+				"name": "Latitude",
+				"type": "decimal",
+				"precision": 9,
+				"scale": 6
+			},
+			{
+				"name": "Cuisines",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Average_Cost_for_Two",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Currency",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Has_Table_Booking",
+				"type": "bit"
+			},
+			{
+				"name": "Has_Online_Delivery",
+				"type": "bit"
+			},
+			{
+				"name": "Is_Delivering_Now",
+				"type": "bit"
+			},
+			{
+				"name": "Switch_to_Order_Menu",
+				"type": "bit"
+			},
+			{
+				"name": "Price_Range",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Aggregate_Rating",
+				"type": "decimal",
+				"precision": 3,
+				"scale": 2
+			},
+			{
+				"name": "Rating_Color",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Rating_Text",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Votes",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Country",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Exchange_Rate",
+				"type": "decimal",
+				"precision": 10,
+				"scale": 4
+			},
+			{
+				"name": "Converted_Cost_INR",
+				"type": "decimal",
+				"precision": 10,
+				"scale": 2
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": {
+				"value": "@dataset().table_name",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

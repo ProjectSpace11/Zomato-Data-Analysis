@@ -1,0 +1,31 @@
+{
+	"name": "gitrepo",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_gitrepo",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"load_flag": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": {
+					"value": "emmettfrankenstein/Zomato-Data-visualization/refs/heads/main/@{dataset().load_flag}",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

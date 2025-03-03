@@ -1,0 +1,174 @@
+{
+	"name": "Incremental_data",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_Incremental_data",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "last load",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "current load",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": {
+							"value": "select * from Zomatodata where Restaurant_ID > '@{activity('last load').output.value[0].last_load}' and Restaurant_ID <= '@{activity('current load').output.value[0].max_ID}'",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "AzureSqldb",
+						"type": "DatasetReference",
+						"parameters": {
+							"table_name": "Zomatodata"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "dlraw",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "last load",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "select * from water_table;",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "AzureSqldb",
+						"type": "DatasetReference",
+						"parameters": {
+							"table_name": "water_table"
+						}
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "current load",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "select max(Restaurant_ID) as max_ID from ZomatoData ",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "AzureSqldb",
+						"type": "DatasetReference",
+						"parameters": {
+							"table_name": "ZomatoData"
+						}
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "watermarkUpdate",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Copy_Incremental_data",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[UpdateWatermarkTable]",
+					"storedProcedureParameters": {
+						"lastload": {
+							"value": {
+								"value": "@activity('current load').output.value[0].max_ID",
+								"type": "Expression"
+							},
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_sqldb",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2025-02-16T13:06:30Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

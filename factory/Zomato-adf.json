@@ -1,0 +1,9 @@
+{
+	"name": "Zomato-adf",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "8997f7bc-8042-4421-93f4-a28dc7faca87",
+		"tenantId": "ba1ab9f9-590d-4058-8638-b7474da1ea41"
+	}
+}
