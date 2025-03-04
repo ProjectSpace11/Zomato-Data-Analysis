@@ -57,3 +57,20 @@ To implement the project, the following Azure services need to be created:
 
 •	Power BI – For data visualization and reporting.
 
+## Pipeline Details
+### Pipeline 1: Data Ingestion
+This pipeline fetches data from GitHub and loads it into the Azure SQL Database.
+Here the source is GitHub Repo and sink is Azure SQL DB
+
+![image](https://github.com/user-attachments/assets/8dc79bde-c537-45c9-95ff-5375d2799c9a)
+
+### Pipeline 2: Incremental Data Loading
+
+This pipeline ensures that only new data is appended to the Bronze layer in Azure Data Lake Gen 2.
+
+![image](https://github.com/user-attachments/assets/e9f49718-a098-43eb-a3df-9f11ca227e8c)
+
+
+
+
+
