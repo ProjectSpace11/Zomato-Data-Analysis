@@ -70,7 +70,7 @@ This pipeline ensures that only new data is appended to the Bronze layer in Azur
 
 ![image](https://github.com/user-attachments/assets/e9f49718-a098-43eb-a3df-9f11ca227e8c)
 
-
+The incremental data loading pipeline in Azure Data Factory (ADF) uses two Lookup activities, one Copy Data activity, and one Stored Procedure activity. The first Lookup retrieves the last processed Restaurant_ID from the watermark table, while the second fetches the current maximum Restaurant_ID from the ZomatoData table. The Copy Data activity transfers only new records by filtering data between these two values. Finally, the Stored Procedure updates the watermark table with the latest processed ID, ensuring efficient and optimized incremental data loading for future pipeline runs.
 
 
 
