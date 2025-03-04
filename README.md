@@ -43,7 +43,8 @@ structures data into three layers for better data management and analytics:\
 •	Finally, data from Azure Synapse analytics is connected to Power BI, where further data analysis and visualization are performed to generate business insights.
 
 ## Required Azure Services:
-To implement the project, the following Azure services need to be created:\ 
+To implement the project, the following Azure services need to be created:
+
 • Azure Data Lake Storage Gen 2 – For scalable and secure data storage.
 
 • Azure Data Factory – For orchestrating data movement and transformation.
