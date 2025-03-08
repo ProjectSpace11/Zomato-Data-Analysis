@@ -72,7 +72,7 @@ This pipeline ensures that only new data is appended to the Bronze layer in Azur
 
 The incremental data loading pipeline in Azure Data Factory (ADF) uses two Lookup activities, one Copy Data activity, and one Stored Procedure activity. The first Lookup retrieves the last processed Restaurant_ID from the watermark table, while the second fetches the current maximum Restaurant_ID from the ZomatoData table. The Copy Data activity transfers only new records by filtering data between these two values. Finally, the Stored Procedure updates the watermark table with the latest processed ID, ensuring efficient and optimized incremental data loading for future pipeline runs.
 
-## Data Transformation
+## Data Transformation in Databricks
 
 After storing the incremental data in the bronze layer, a Databricks notebook was created within the ZomatoData resource group and connected to the database using an SAS token.
 Some of the below transformation has been performed
@@ -81,6 +81,23 @@ Some of the below transformation has been performed
 Merged two dataset using Inner join and save the data in silver layer
 ![image](https://github.com/user-attachments/assets/0f9d4ad6-aa75-44ad-a4cc-152a59a89e0b)
 ![image](https://github.com/user-attachments/assets/491950f3-7faf-4d2e-9163-8823379ca5b3)
+![image](https://github.com/user-attachments/assets/3922c3da-7321-4e23-9074-0c3197e6970b)
+![image](https://github.com/user-attachments/assets/129a3470-d5a8-4b49-be07-d92cf8359fba)
 
+This all datasets are stored under silver container.
+
+## Configuring Azure Synapse Analytics for Data Representation in Power BI
+
+This process involves setting up an Azure Synapse SQL database, configuring secure access to ADLS Gen2 storage, and creating external tables directly on the gold layer data. From there, the data is connected to Power BI for visualization.
+
+## PowerBi Report
+
+Now once the data is organized in Synapse Analytics:\
+•	Power BI connects to the Synapse SQL pool as a data source.\
+•	It queries the external tables and views directly, pulling only what’s needed.\
+Below are the few shorts from PowerBi report
+
+![image](https://github.com/user-attachments/assets/aafeb79d-975b-45f0-92cf-568d0695179c)
+![image](https://github.com/user-attachments/assets/9c2f4767-93eb-4a0f-8d11-ce8d64074b49)
 
 
