@@ -90,12 +90,12 @@ This all datasets are stored under silver container.
 
 This process involves setting up an Azure Synapse SQL database, configuring secure access to ADLS Gen2 storage, and creating external tables directly on the gold layer data. From there, the data is connected to Power BI for visualization.
 
-## PowerBi Report
+## PowerBI Report
 
 Now once the data is organized in Synapse Analytics:\
 •	Power BI connects to the Synapse SQL pool as a data source.\
 •	It queries the external tables and views directly, pulling only what’s needed.\
-Below are the few shorts from PowerBi report
+Below are the few shorts from PowerBI report
 
 ![image](https://github.com/user-attachments/assets/aafeb79d-975b-45f0-92cf-568d0695179c)
 ![image](https://github.com/user-attachments/assets/9c2f4767-93eb-4a0f-8d11-ce8d64074b49)
